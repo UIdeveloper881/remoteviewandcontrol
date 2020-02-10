@@ -1,0 +1,178 @@
+//nCr Robotics Luke Jamie control servos over wifi
+#include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+Servo servo1
+Servo servo2
+const char webui[] PROGMEM = R"=====(
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>nCr Robotics</title>
+<body>
+<center>
+<style>
+#container {
+  margin: 0px auto;
+  width: 500px;
+  height: 375px;
+  border: 10px #333 solid;
+}
+#videoElement {
+  width: 500px;
+  height: 375px;
+  background-color: #666;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+  <video autoplay="true" id="videoElement">
+  
+  </video>
+</div>
+<script>
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+</script>
+
+
+<h1>Servo Control</h1><br>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo1 30 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo1 60 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo1 90 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo1 120 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo1 150 degrees</a><br>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo1 180 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo2 30 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo2 60 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo2 90 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo2 120 degress</a><br>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo2 150 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo2 180 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo3 30 degress</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo3 60 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo3 90 degrees</a><br>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo3 120 degress</a>
+Click to turn <a href="servo1 30 degrees" target="myIframe">Servo3 150 degrees</a>
+Click to turn <a href="servo1 60 degrees" target="myIframe">Servo3 180 degress</a>
+<form>
+<p>
+<p>
+<label for="servo1input">Servo 1 inbetween 1-180 </label><input type="text" id="servo1input" name="servo1input"><br><br>
+<label for="servo2input">Servo 2 inbetween 1-180 </label><input type="text" id="servo2input" name="servo2input"><br><br> 
+<label for="servo3nput">Servo 3 inbetween 1-180 </label><input type="text" id="servo3input" name="servo3input"><br><br> 
+<input type="submit" value="Submit">
+
+Servo State<iframe name="myIframe" width="100" height="25" frameBorder="0"><br>
+<br>
+
+</body>
+</html>
+)=====";
+//---------------------------------------------------------------
+
+
+const char* ssid = "xxx";
+const char* password = "123";
+
+ESP8266WebServer server(80); //Server on port 80
+
+void handleRoot() {
+String s = webui;
+server.send(200, "text/html", s);}
+
+void servo1_30degrees(){
+servo1.write(30); 
+server.send(200, "text/html", "30 degrees");}
+void servo1_60degrees() { 
+servo1.write(60); 
+server.send(200, "text/html", "60 degrees");}
+void servo1_90degrees(){
+servo1.write(90); 
+server.send(200, "text/html", "90 degrees");}
+void servo1_120degrees(){
+servo1.write(120); 
+server.send(200, "text/html", "120 degrees");}
+void servo1_150degrees() { 
+servo1.write(150); 
+server.send(200, "text/html", "150 degrees");}
+void servo1_180degrees(){
+servo1.write(180); 
+server.send(200, "text/html", "180 degrees");}
+
+void servo2_30degrees(){
+servo2.write(30); 
+server.send(200, "text/html", "30 degrees");}
+void servo2_60degrees() { 
+servo2.write(60); 
+server.send(200, "text/html", "60 degrees");}
+void servo2_90degrees(){
+servo2.write(90); 
+server.send(200, "text/html", "90 degrees");}
+void servo2_120degrees(){
+servo2.write(120); 
+server.send(200, "text/html", "120 degrees");}
+void servo2_150degrees() { 
+servo2.write(150); 
+server.send(200, "text/html", "150 degrees");}
+void servo2_180degrees(){
+servo2.write(180); 
+server.send(200, "text/html", "180 degrees");}
+
+void servo1_30degrees(){
+servo3.write(30); 
+server.send(200, "text/html", "30 degrees");}
+void servo1_60degrees() { 
+servo3.write(60); 
+server.send(200, "text/html", "60 degrees");}
+void servo1_90degrees(){
+servo3.write(90); 
+server.send(200, "text/html", "90 degrees");}
+void servo1_120degrees(){
+servo3.write(120); 
+server.send(200, "text/html", "120 degrees");}
+void servo1_150degrees() { 
+servo3.write(150); 
+server.send(200, "text/html", "150 degrees");}
+void servo1_180degrees(){
+servo3.write(180); 
+server.send(200, "text/html", "180 degrees");}
+void setup(void){
+void forminput1(){
+
+ 
+}
+servo.attach(9);
+Serial.begin(115200);
+  
+WiFi.begin(ssid, password);     //Connect to your WiFi router
+Serial.println("");
+  
+while (WiFi.status() != WL_CONNECTED) {
+delay(500);
+Serial.print(".");
+}
+Serial.println("");
+Serial.print("Connected to ");
+Serial.println(ssid);
+Serial.print("IP address: ");
+Serial.println(WiFi.localIP());  //IP address assigned to your ESP
+server.begin();                  //Start server
+Serial.println("HTTP server started");
+}
+void loop(void){
+  server.handleClient();          //Handle client requests
+}
